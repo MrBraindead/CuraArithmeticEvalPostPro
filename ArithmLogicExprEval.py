@@ -9,11 +9,11 @@ import re #To perform the search and replace.
 
 from ..Script import Script
 
-class ArithmicEval(Script):
+class ArithmLogicExprEval(Script):
 
     def getSettingDataString(self):
         return """{
-            "name": "Arithmetic and logical expression evaluation",
+            "name": "Arithmetic And Logical Expression Evaluation",
             "key": "ArithmLogicExprEval",
             "metadata": {},
             "version": 2,
@@ -35,8 +35,9 @@ class ArithmicEval(Script):
                         "binary": "Binary ( 1  or 0 )",
                         "text": "Text (True or False)"
                     },
-                    "default_value": "Binary"
+                    "default_value": "binary"
                 }
+            }
 
         }"""
 
