@@ -16,7 +16,16 @@ class ArithmicEval(Script):
             "name": "Arithmetic and logical expression evaluation",
             "key": "ArithmLogicExprEval",
             "metadata": {},
-            "version": 2
+            "version": 2,
+            "settings":
+            {
+                "EvalComment":
+                {
+                    "label": "Evaluate Comments",
+                    "description": "Expressions in Comments will be evaluated.",
+                    "type": "bool",
+                    "default_value": false
+                }
         }"""
 
     def execute(self, data):
@@ -24,6 +33,9 @@ class ArithmicEval(Script):
         # Matches Semicolons and Expressions
         RegExPattern = "(;|[\d()+\-*/%<>&!=|~:. ]+[()+\-*/%<>&!=|~:]+[\d()+\-*/%<>&!=|~:. ]+)"
         RegExObj = re.compile(RegExPattern)
+
+        # should comments be evaluated?
+        EvalComments = self.getSettingValueByKey("search")
 
         for layer_number, layer in enumerate(data):
             lines = layer.split("\n")
@@ -42,8 +54,10 @@ class ArithmicEval(Script):
                     # is expression or comment
                     if(re.fullmatch(RegExObj, snippet) != None):
                         
-                        # if the following is a comment then break
+                        # the following is a comment
                         if(snippet == ";"):
+                            if(EvalComments):
+                                continue
                             break
                         
                         # evaluate expression
