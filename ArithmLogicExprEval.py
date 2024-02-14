@@ -25,7 +25,19 @@ class ArithmicEval(Script):
                     "description": "Expressions in Comments will be evaluated.",
                     "type": "bool",
                     "default_value": false
+                },
+                "BoolRep":
+                {
+                    "label": "Boolean Representation",
+                    "description": "Choose how booleans are represented.",
+                    "type": "enum",
+                    "options": {
+                        "binary": "Binary ( 1  or 0 )",
+                        "text": "Text (True or False)"
+                    },
+                    "default_value": "Binary"
                 }
+
         }"""
 
     def execute(self, data):
@@ -35,7 +47,10 @@ class ArithmicEval(Script):
         RegExObj = re.compile(RegExPattern)
 
         # should comments be evaluated?
-        EvalComments = self.getSettingValueByKey("search")
+        EvalComments = self.getSettingValueByKey("EvalComment")
+
+        # how should booleans be represented
+        BoolRepresentation = self.getSettingValueByKey("BoolRep")
 
         for layer_number, layer in enumerate(data):
             lines = layer.split("\n")
@@ -61,7 +76,15 @@ class ArithmicEval(Script):
                             break
                         
                         # evaluate expression
-                        snippets[snippet_number] = eval(snippet)
+                        result = eval(snippet)
+
+                        # is boolean
+                        if(isinstance(result), (bool)):
+                            # should be binary representation
+                            if(BoolRepresentation == "binary"):
+                                result = int(result)
+
+                        snippets[snippet_number] = result
 
                 lines[line_number] = snippets
                     
