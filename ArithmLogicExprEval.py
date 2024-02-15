@@ -62,7 +62,7 @@ class ArithmLogicExprEval(Script):
 
                 # there are no expressions
                 if(len(snippets) == 1):
-                    break
+                    continue
 
                 # evaluate arithmetic and logical expression
                 for snippet_number, snippet in enumerate(snippets):
@@ -80,15 +80,15 @@ class ArithmLogicExprEval(Script):
                         result = eval(snippet)
 
                         # is boolean
-                        if(isinstance(result), (bool)):
+                        if(type(result) == bool):
                             # should be binary representation
                             if(BoolRepresentation == "binary"):
                                 result = int(result)
 
-                        snippets[snippet_number] = result
+                        snippets[snippet_number] = str(result) + " "
 
-                lines[line_number] = snippets
-                    
+                lines[line_number] = "".join(snippets)               
+
             new_layer = "\n".join(lines)
             data[layer_number] = new_layer
 
