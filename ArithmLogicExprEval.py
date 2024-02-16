@@ -41,10 +41,14 @@ class ArithmLogicExprEval(Script):
 
         }"""
 
-    def execute(self, data):
-        # Define regex for finding arithmetic expressions
-        # Matches Semicolons and Expressions
-        RegExPattern = "(;|[\d()+\-*/%<>&!=|~:. ]+[()+\-*/%<>&!=|~:]+[\d()+\-*/%<>&!=|~:. ]+)"
+    def execute(self, data):       
+        RegExPattern = (# Detect Comments
+                        "(;"
+                        # Detect arithmetic expressions                                                   
+                        "|[\d()]+[\d.+\-*/%() ]*[+\-*/%]+[\d.+\-*/%() ]*[\d()]+"
+                        # Detect logical expressions
+                        "|[\d\w.+\-*/%()\"' ]*[=!<>&|^~]+[\d\w.+\-*/%()\"' ]*)"
+        )
         RegExObj = re.compile(RegExPattern)
 
         # should comments be evaluated?
