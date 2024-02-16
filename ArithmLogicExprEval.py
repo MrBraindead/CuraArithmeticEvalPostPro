@@ -6,6 +6,7 @@
 # License:  You may use, distribute and modify this code under the terms of the GNU LGPL v2.1 license.
 
 import re #To perform the search and replace.
+import math
 
 from ..Script import Script
 
@@ -43,11 +44,13 @@ class ArithmLogicExprEval(Script):
 
     def execute(self, data):       
         RegExPattern = (# Detect Comments
-                        "(;"
+                        "(?:;"
                         # Detect arithmetic expressions                                                   
                         "|[\d()]+[\d.+\-*/%() ]*[+\-*/%]+[\d.+\-*/%() ]*[\d()]+"
                         # Detect logical expressions
                         "|[\d\w.+\-*/%()\"' ]*[=!<>&|^~]+[\d\w.+\-*/%()\"' ]*)"
+                        # Detect mathematical functions
+                        "|[\d.+\-*/%() ]*math\.[a-z]+\(.+\)[\d.+\-*/%() ]*)+"
         )
         RegExObj = re.compile(RegExPattern)
 
