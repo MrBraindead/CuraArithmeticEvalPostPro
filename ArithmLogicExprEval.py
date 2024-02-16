@@ -46,11 +46,11 @@ class ArithmLogicExprEval(Script):
         RegExPattern = (# Detect Comments
                         "(?:;"
                         # Detect arithmetic expressions                                                   
-                        "|[\d()]+[\d.+\-*/%() ]*[+\-*/%]+[\d.+\-*/%() ]*[\d()]+"
+                        "|[\d()]+[\d.+\-*/%() ]*[+\-*/%][\d.+\-*/%() ]*[\d()]+"
                         # Detect logical expressions
-                        "|[\d\w.+\-*/%()\"' ]*[=!<>&|^~]+[\d\w.+\-*/%()\"' ]*)"
+                        "|[\d\w.=!<>&|^~' ]*[=!<>&|^~][\d\w.=!<>&|^~' ]+"
                         # Detect mathematical functions
-                        "|[\d.+\-*/%() ]*math\.[a-z]+\(.+\)[\d.+\-*/%() ]*)+"
+                        "|[\d.+\-*/%() ]*math\.[a-z\d]+\(.+\)[\d.+\-*/%() ]*)+"
         )
         RegExObj = re.compile(RegExPattern)
 
