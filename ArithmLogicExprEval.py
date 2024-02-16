@@ -2,8 +2,8 @@
 #
 # Author:   Mika Schmitt
 # Date:     February 14, 2024
-# Modified: 
-# License: You may use, distribute and modify this code under the terms of the LGPLv3 license.
+# Modified: February 15, 2024
+# License:  You may use, distribute and modify this code under the terms of the GNU LGPL v2.1 license.
 
 import re #To perform the search and replace.
 
